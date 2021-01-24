@@ -35,22 +35,22 @@ Wprowadź poprawki do kodu.
 
 Dostarcz funkcjonalność przerwania działania aplikacji (wybranie `X`) działające według następującego scenariusza:
 
-1. Użytkownik kończy działanie aplikacji - poddaje się - odpowiadając na stosowne pytanie wyborem `X` lub `x`.
-2. Stan aplikacji zostaje zapamiętany na dysku, w pliku zlokalizowanym w folderze, w którym znajduje się program uruchomieniowy aplikacji.
-3. Aplikacja kończy działanie.
-4. Przy ponownym uruchomieniu aplikacji, wykrywa ona istnienie pliku, próbuje go odczytać.
-5. Jeśli odczyt jest poprawny, aplikacja komunikuje użytkownikowi, że jest możliwe odtworzenie stanu z poprzedniego uruchomienia, wyświetlając sumaryczne informacje dotyczące przerwanej rozgrywki (oczywiście bez poszukiwanej wartości).
-6. Jeśli użytkownik zdecyduje się na kontynuowanie poprzedniej rozgrywki, stan aplikacji sprzed zamknięcia zostaje przywrócony i rozgrywka toczy się dalej. Plik z zapamiętanym stanem poprzedniej rozgrywki zostaje usunięty.
-7. Jeśli użytkownik chce rozpocząć rozgrywkę od nowa, plik ze stanem gry zostaje usunięty i uruchamiana jest nowa gra.
+1. [x] Użytkownik kończy działanie aplikacji - poddaje się - odpowiadając na stosowne pytanie wyborem `X` lub `x`.
+2. [x] Stan aplikacji zostaje zapamiętany na dysku, w pliku zlokalizowanym w folderze, w którym znajduje się program uruchomieniowy aplikacji.
+3. [x] Aplikacja kończy działanie.
+4. [x] Przy ponownym uruchomieniu aplikacji, wykrywa ona istnienie pliku, próbuje go odczytać.
+5. [x] Jeśli odczyt jest poprawny, aplikacja komunikuje użytkownikowi, że jest możliwe odtworzenie stanu z poprzedniego uruchomienia, wyświetlając sumaryczne informacje dotyczące przerwanej rozgrywki (oczywiście bez poszukiwanej wartości).
+6. [ ] Jeśli użytkownik zdecyduje się na kontynuowanie poprzedniej rozgrywki, stan aplikacji sprzed zamknięcia zostaje przywrócony i rozgrywka toczy się dalej. Plik z zapamiętanym stanem poprzedniej rozgrywki zostaje usunięty.
+7. [x] Jeśli użytkownik chce rozpocząć rozgrywkę od nowa, plik ze stanem gry zostaje usunięty i uruchamiana jest nowa gra.
 
 Wprowadzone poprawki **muszą** być odporne na pojawienie się ewentualnych błędów (brak pliku, nie można zapisać pliku, plik uszkodzony, zapis stanu gry niewłaściwy, ...). Wprowadź odpowiednie przechwytywanie wyjątków i reakcje na nie, ale tak, aby nie kończyć działania aplikacji.
 
-Skoryguj wyświetlanie historii gry. Wprowadź nowy stan gry `Zawieszona`. Skoryguj obliczanie czasu trwania rozgrywki (nie uwzględnianie czasu jej zawieszenia).
+[ ] Skoryguj wyświetlanie historii gry. Wprowadź nowy stan gry `Zawieszona`. Skoryguj obliczanie czasu trwania rozgrywki (nie uwzględnianie czasu jej zawieszenia).
 
-Zadanie wykonaj w dwóch wariantach:
+[ ] Zadanie wykonaj w dwóch wariantach:
 
-1. Wykorzystaj serializację binarną
-2. Wykorzystaj serializację do XML _via_ `DataContract`.
+1. [x] Wykorzystaj serializację binarną
+2. [ ] Wykorzystaj serializację do XML _via_ `DataContract`.
 
 W tym drugim przypadku zapewnij odpowiedni poziom "tajności" zapisanego pliku poprzez zaszyfrowanie albo całego pliku, albo przynajmniej wartości odgadywanej. Ręczne poprawki wprowadzone do pliku XML mogłyby zafałszować kontynuowaną rozgrywkę.
 

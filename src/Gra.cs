@@ -45,6 +45,7 @@ namespace GraZaDuzoZaMalo.Model
     /// Pojedynczy Ruch
     /// </para>
     /// </remarks>
+    [Serializable]
     public class Gra
     {
         /// <summary>
@@ -70,14 +71,17 @@ namespace GraZaDuzoZaMalo.Model
         /// <summary>
         /// Typ wyliczeniowy opisujący możliwe statusy gry.
         /// </summary>
+        [Serializable]
         public enum Status
         {
             /// <summary>Status gry ustawiany w momencie utworzenia obiektu gry. Zmiana tego statusu mozliwa albo gdy liczba zostanie odgadnieta, albo jawnie przerwana przez gracza.</summary>
             WTrakcie,
             /// <summary>Status gry ustawiany w momencie odgadnięcia poszukiwanej liczby.</summary>
             Zakonczona,
+            /// <summary>Status gry ustawiany w momencie jawnego zakończenia gry przez gracza.</summary>
+            Poddana,
             /// <summary>Status gry ustawiany w momencie jawnego przerwania gry przez gracza.</summary>
-            Poddana
+            Zawieszona
         };
 
         /// <summary>
@@ -167,6 +171,11 @@ namespace GraZaDuzoZaMalo.Model
             return liczbaDoOdgadniecia;
         }
 
+        public void Wznow()
+        {
+            StatusGry = Status.WTrakcie;
+        }
+
 
         // struktury wewnętrzne, pomocnicze
         public enum Odpowiedz
@@ -176,6 +185,7 @@ namespace GraZaDuzoZaMalo.Model
             ZaDuzo = 1
         };
 
+        [Serializable]
         public class Ruch
         {
             public int? Liczba { get; }

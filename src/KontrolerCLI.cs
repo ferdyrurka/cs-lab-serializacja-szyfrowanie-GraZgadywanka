@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GraZaDuzoZaMalo.Model;
 using static GraZaDuzoZaMalo.Model.Gra.Odpowiedz;
+using GraZaDuzoZaMalo.Serializer;
+using GraZaDuzoZaMalo.FileSystem;
 
 namespace AppGraZaDuzoZaMaloCLI
 {
@@ -33,17 +35,33 @@ namespace AppGraZaDuzoZaMaloCLI
         public void Uruchom()
         {
             widok.OpisGry();
-            while( widok.ChceszKontynuowac("Czy chcesz kontynuować aplikację (t/n)? ") )
+    
+            while(widok.ChceszKontynuowac("Czy chcesz kontynuować aplikację (t/n)? ")) {
                 UruchomRozgrywke();
+            }
         }
 
         public void UruchomRozgrywke()
         {
             widok.CzyscEkran();
-            // ustaw zakres do losowania
 
+            GameFileSystem gameFileSystem = new GameFileSystem();
 
-            gra = new Gra(MinZakres, MaxZakres); //może zgłosić ArgumentException
+            if (gameFileSystem.IsExist()) {
+                GameBinarySerializer gameBinarySerializer = new GameBinarySerializer();
+                Gra gra = gameBinarySerializer.Deserialize<Gra>();
+
+                if (gra == null || !widok.ChceszKontynuowacStaraRozgrywke("Czy chcesz kontynuować starą rozgrywke (t/n)? ")) {
+                    // gra.Zakoncz();
+                    gra = new Gra(MinZakres, MaxZakres);
+                } else {
+                    gra.Wznow();
+                }
+
+                gameFileSystem.Delete();
+            } else {
+                gra = new Gra(MinZakres, MaxZakres);
+            }
 
             do
             {
@@ -53,8 +71,12 @@ namespace AppGraZaDuzoZaMaloCLI
                 {
                     propozycja = widok.WczytajPropozycje();
                 }
-                catch( KoniecGryException)
+                catch(KoniecGryException)
                 {
+                    GameBinarySerializer gameBinarySerializer = new GameBinarySerializer();
+
+                    gameBinarySerializer.Serialize<Gra>(gra);
+
                     gra.Przerwij();
                 }
 

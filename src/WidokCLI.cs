@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Console;
+using System.IO;
 
 namespace AppGraZaDuzoZaMaloCLI
 {
@@ -23,18 +24,25 @@ namespace AppGraZaDuzoZaMaloCLI
         {
             int wynik = 0;
             bool sukces = false;
+
             while (!sukces)
             {
                 Write("Podaj swoją propozycję (lub " + KontrolerCLI.ZNAK_ZAKONCZENIA_GRY + " aby przerwać): ");
                 try
                 {
                     string value = ReadLine().TrimStart().ToUpper();
-                    if (value.Length > 0 && value[0].Equals(ZNAK_ZAKONCZENIA_GRY))
+                    if (value.Length > 0 && value[0].Equals(ZNAK_ZAKONCZENIA_GRY)) {
                         throw new KoniecGryException();
+                    }
+                        
 
                     //UWAGA: ponizej może zostać zgłoszony wyjątek 
                     wynik = Int32.Parse(value);
                     sukces = true;
+                }
+                catch (KoniecGryException)
+                {
+                    throw;
                 }
                 catch (FormatException)
                 {
@@ -69,6 +77,19 @@ namespace AppGraZaDuzoZaMaloCLI
                 return (odp == 't' || odp == 'T');
         }
 
+        public bool ChceszKontynuowacStaraRozgrywke( string prompt )
+        {
+            WriteLine("Można kontynuować starą rozgrywke oto jest poprzedni stan:");
+
+            HistoriaGry();
+
+            Write( prompt );
+            char odp = ReadKey().KeyChar;
+            WriteLine();
+            
+            return (odp == 't' || odp == 'T');
+        }
+
         public void HistoriaGry()
         {
             if (kontroler.ListaRuchow.Count == 0)
@@ -82,8 +103,14 @@ namespace AppGraZaDuzoZaMaloCLI
             int i = 1;
             foreach ( var ruch in kontroler.ListaRuchow)
             {
-                WriteLine($"{i}     {ruch.Liczba}      {ruch.Wynik}  {ruch.Czas.Second}   {ruch.StatusGry}");
-                i++;
+                if (ruch.Wynik != null) {
+                    WriteLine($"{i}     {ruch.Liczba}      {ruch.Wynik}  {ruch.Czas.Second}   {ruch.StatusGry}");
+                    i++;
+                } else {
+                    // WriteLine($"{i}                         {ruch.StatusGry}");
+                    WriteLine($"{i}     {ruch.Liczba}      {ruch.Wynik}  {ruch.Czas.Second}   {ruch.StatusGry}");
+                    i++;
+                }
             }
         }
 
