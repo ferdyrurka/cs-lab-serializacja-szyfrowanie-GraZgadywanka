@@ -13,7 +13,7 @@ namespace GraZaDuzoZaMalo.Serializer
             FileStream fs;
 
             try {
-                fs = new FileStream("GameState.dat", FileMode.OpenOrCreate);
+                fs = new FileStream("GameState.dat", FileMode.Create);
             } catch (Exception) {
                 Console.WriteLine("Coś poszło nie tak! Nie można utworzyć ani otworzyć pliku z stanem gry!");
                 return;

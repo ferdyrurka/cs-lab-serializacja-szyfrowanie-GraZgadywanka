@@ -49,13 +49,11 @@ namespace AppGraZaDuzoZaMaloCLI
 
             if (gameFileSystem.IsExist()) {
                 GameBinarySerializer gameBinarySerializer = new GameBinarySerializer();
-                Gra gra = gameBinarySerializer.Deserialize<Gra>();
+                gra = gameBinarySerializer.Deserialize<Gra>();
 
-                if (gra == null || !widok.ChceszKontynuowacStaraRozgrywke("Czy chcesz kontynuować starą rozgrywke (t/n)? ")) {
-                    // gra.Zakoncz();
+                if (gra == null || ListaRuchow.Count == 0 || !widok.ChceszKontynuowacStaraRozgrywke("Czy chcesz kontynuować starą rozgrywke (t/n)? ")) {
+                    gra.Zakoncz();
                     gra = new Gra(MinZakres, MaxZakres);
-                } else {
-                    gra.Wznow();
                 }
 
                 gameFileSystem.Delete();
@@ -69,15 +67,19 @@ namespace AppGraZaDuzoZaMaloCLI
                 int propozycja = 0;
                 try
                 {
+                    if (gra.StatusGry == Gra.Status.Zawieszona) {
+                        gra.Wznow();
+                    }
+                    
                     propozycja = widok.WczytajPropozycje();
                 }
                 catch(KoniecGryException)
                 {
                     GameBinarySerializer gameBinarySerializer = new GameBinarySerializer();
+                    
+                    gra.Przerwij();
 
                     gameBinarySerializer.Serialize<Gra>(gra);
-
-                    gra.Przerwij();
                 }
 
                 Console.WriteLine(propozycja);
@@ -103,6 +105,8 @@ namespace AppGraZaDuzoZaMaloCLI
                 widok.HistoriaGry();
             }
             while (gra.StatusGry == Gra.Status.WTrakcie);
+
+            Console.WriteLine(gra.StatusGry);
                       
             //if StatusGry == Przerwana wypisz poprawną odpowiedź
             //if StatusGry == Zakończona wypisz statystyki gry

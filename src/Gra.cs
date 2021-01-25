@@ -163,9 +163,8 @@ namespace GraZaDuzoZaMalo.Model
         {
             if (StatusGry == Status.WTrakcie)
             {
-                StatusGry = Status.Poddana;
-                CzasZakonczenia = DateTime.Now;
-                listaRuchow.Add(new Ruch(null, null, Status.WTrakcie));
+                StatusGry = Status.Zawieszona;
+                listaRuchow.Add(new Ruch(null, null, Status.Zawieszona));
             }
 
             return liczbaDoOdgadniecia;
@@ -174,8 +173,15 @@ namespace GraZaDuzoZaMalo.Model
         public void Wznow()
         {
             StatusGry = Status.WTrakcie;
+            listaRuchow.Add(new Ruch(null, null, Status.WTrakcie));
         }
 
+        public void Zakoncz()
+        {
+            CzasZakonczenia = DateTime.Now;
+            StatusGry = Status.Poddana;
+            listaRuchow.Add(new Ruch(null, null, Status.Poddana));
+        }
 
         // struktury wewnętrzne, pomocnicze
         public enum Odpowiedz

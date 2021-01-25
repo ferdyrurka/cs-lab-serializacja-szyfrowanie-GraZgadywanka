@@ -40,12 +40,12 @@ Dostarcz funkcjonalność przerwania działania aplikacji (wybranie `X`) działa
 3. [x] Aplikacja kończy działanie.
 4. [x] Przy ponownym uruchomieniu aplikacji, wykrywa ona istnienie pliku, próbuje go odczytać.
 5. [x] Jeśli odczyt jest poprawny, aplikacja komunikuje użytkownikowi, że jest możliwe odtworzenie stanu z poprzedniego uruchomienia, wyświetlając sumaryczne informacje dotyczące przerwanej rozgrywki (oczywiście bez poszukiwanej wartości).
-6. [ ] Jeśli użytkownik zdecyduje się na kontynuowanie poprzedniej rozgrywki, stan aplikacji sprzed zamknięcia zostaje przywrócony i rozgrywka toczy się dalej. Plik z zapamiętanym stanem poprzedniej rozgrywki zostaje usunięty.
+6. [x] Jeśli użytkownik zdecyduje się na kontynuowanie poprzedniej rozgrywki, stan aplikacji sprzed zamknięcia zostaje przywrócony i rozgrywka toczy się dalej. Plik z zapamiętanym stanem poprzedniej rozgrywki zostaje usunięty.
 7. [x] Jeśli użytkownik chce rozpocząć rozgrywkę od nowa, plik ze stanem gry zostaje usunięty i uruchamiana jest nowa gra.
 
 Wprowadzone poprawki **muszą** być odporne na pojawienie się ewentualnych błędów (brak pliku, nie można zapisać pliku, plik uszkodzony, zapis stanu gry niewłaściwy, ...). Wprowadź odpowiednie przechwytywanie wyjątków i reakcje na nie, ale tak, aby nie kończyć działania aplikacji.
 
-[ ] Skoryguj wyświetlanie historii gry. Wprowadź nowy stan gry `Zawieszona`. Skoryguj obliczanie czasu trwania rozgrywki (nie uwzględnianie czasu jej zawieszenia).
+[x] Skoryguj wyświetlanie historii gry. Wprowadź nowy stan gry `Zawieszona`. Skoryguj obliczanie czasu trwania rozgrywki (nie uwzględnianie czasu jej zawieszenia).
 
 [ ] Zadanie wykonaj w dwóch wariantach:
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Console;
 using System.IO;
+using GraZaDuzoZaMalo.Model;
 
 namespace AppGraZaDuzoZaMaloCLI
 {
@@ -40,9 +41,9 @@ namespace AppGraZaDuzoZaMaloCLI
                     wynik = Int32.Parse(value);
                     sukces = true;
                 }
-                catch (KoniecGryException)
+                catch (KoniecGryException exception)
                 {
-                    throw;
+                    throw exception;
                 }
                 catch (FormatException)
                 {
@@ -71,10 +72,11 @@ namespace AppGraZaDuzoZaMaloCLI
 
         public bool ChceszKontynuowac( string prompt )
         {
-                Write( prompt );
-                char odp = ReadKey().KeyChar;
-                WriteLine();
-                return (odp == 't' || odp == 'T');
+            Write( prompt );
+            char odp = ReadKey().KeyChar;
+            WriteLine();
+
+            return (odp == 't' || odp == 'T');
         }
 
         public bool ChceszKontynuowacStaraRozgrywke( string prompt )
@@ -100,17 +102,28 @@ namespace AppGraZaDuzoZaMaloCLI
 
             WriteLine("Nr    Propozycja     Odpowiedź     Czas    Status");
             WriteLine("=================================================");
+
             int i = 1;
+            DateTime previousTime = default(DateTime);
+            double totalSeconds = 0;
+
             foreach ( var ruch in kontroler.ListaRuchow)
             {
-                if (ruch.Wynik != null) {
-                    WriteLine($"{i}     {ruch.Liczba}      {ruch.Wynik}  {ruch.Czas.Second}   {ruch.StatusGry}");
-                    i++;
+                if (ruch.StatusGry != Gra.Status.Zawieszona) {
+                    if (previousTime != default(DateTime)) {
+                        TimeSpan timeSpan = ruch.Czas - previousTime;
+                        totalSeconds += Math.Round(timeSpan.TotalSeconds);
+                    }
+
+                    previousTime = ruch.Czas;
+
+                    WriteLine($"{i}     {ruch.Liczba}      {ruch.Wynik}  {totalSeconds}   {ruch.StatusGry}");
                 } else {
-                    // WriteLine($"{i}                         {ruch.StatusGry}");
-                    WriteLine($"{i}     {ruch.Liczba}      {ruch.Wynik}  {ruch.Czas.Second}   {ruch.StatusGry}");
-                    i++;
+                    WriteLine($"{i}                         {ruch.StatusGry}");
+                    previousTime = default(DateTime);
                 }
+
+                i++;
             }
         }
 
