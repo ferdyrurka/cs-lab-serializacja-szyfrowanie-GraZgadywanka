@@ -68,11 +68,11 @@ namespace GraZaDuzoZaMalo.Model
 
 
         [DataMember]
-        private string encodeLiczbaDoDgadniecia;
+        private string encodeLiczbaDoOdgadniecia;
 
         private int liczbaDoOdgadniecia {
-            get { return Int32.Parse(Base64.Base64Decode(encodeLiczbaDoDgadniecia)); }
-            set { encodeLiczbaDoDgadniecia = Base64.Base64Encode(value.ToString()); } 
+            get { return Int32.Parse(Base64.Base64Decode(encodeLiczbaDoOdgadniecia)); }
+            set { encodeLiczbaDoOdgadniecia = Base64.Base64Encode(value.ToString()); } 
         }
 
         /// <summary>
