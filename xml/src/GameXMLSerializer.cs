@@ -36,7 +36,6 @@ namespace GraZaDuzoZaMalo.Serializer
 
         public T Deserialize<T>()
         {
-            T deserializeObject;
             FileStream fs;
 
             try {
@@ -48,10 +47,11 @@ namespace GraZaDuzoZaMalo.Serializer
             
             try
             {
-                deserializeObject = (T) (new DataContractSerializer(typeof(T))).ReadObject(fs);;
+                return (T) (new DataContractSerializer(typeof(T))).ReadObject(fs);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 Console.WriteLine("Coś poszło nie tak, plik zapisu gry jest uszkodzony!");
                 return default(T);
             }
@@ -59,8 +59,6 @@ namespace GraZaDuzoZaMalo.Serializer
             {
                 fs.Close();
             }
-
-            return deserializeObject;
         }
     }
 }

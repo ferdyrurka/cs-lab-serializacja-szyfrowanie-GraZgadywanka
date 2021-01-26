@@ -52,7 +52,10 @@ namespace AppGraZaDuzoZaMaloCLI
                 gra = gameBinarySerializer.Deserialize<Gra>();
 
                 if (gra == null || ListaRuchow.Count == 0 || !widok.ChceszKontynuowacStaraRozgrywke("Czy chcesz kontynuować starą rozgrywke (t/n)? ")) {
-                    gra.Zakoncz();
+                    if (gra != null) {
+                        gra.Zakoncz();
+                    }
+                    
                     gra = new Gra(MinZakres, MaxZakres);
                 }
 

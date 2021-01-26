@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using GraZaDuzoZaMalo.Util;
 
 namespace GraZaDuzoZaMalo.Model
 {
@@ -67,8 +68,12 @@ namespace GraZaDuzoZaMalo.Model
 
 
         [DataMember]
-        readonly private int liczbaDoOdgadniecia;
+        private string encodeLiczbaDoDgadniecia;
 
+        private int liczbaDoOdgadniecia {
+            get { return Int32.Parse(Base64.Base64Decode(encodeLiczbaDoDgadniecia)); }
+            set { encodeLiczbaDoDgadniecia = Base64.Base64Encode(value.ToString()); } 
+        }
 
         /// <summary>
         /// Typ wyliczeniowy opisujący możliwe statusy gry.

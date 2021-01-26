@@ -23,7 +23,7 @@ namespace GraZaDuzoZaMalo.Serializer
             {
                 (new BinaryFormatter()).Serialize(fs, serializeObject);
             }
-            catch (SerializationException)
+            catch (Exception)
             {
                 Console.WriteLine("Coś poszło nie tak, stan gry nie został zapisany!");
                 throw;
@@ -50,7 +50,7 @@ namespace GraZaDuzoZaMalo.Serializer
             {
                 deserializeObject = (T) (new BinaryFormatter()).Deserialize(fs);
             }
-            catch (SerializationException)
+            catch (Exception)
             {
                 Console.WriteLine("Coś poszło nie tak, plik zapisu gry jest uszkodzony!");
                 return default(T);
